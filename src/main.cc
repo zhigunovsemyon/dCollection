@@ -1,10 +1,10 @@
-#include "object.h"
 #include "Int.h"
+#include "Double.h"
 #include <iostream>
 
 int main()
 {
-	Int n{10};
-	n.save(stdout);
+	Double n{10};
+	std::cout << n.read(stdin) << std::endl;
 	return 0;
 }

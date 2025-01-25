@@ -33,15 +33,10 @@ public:
 		return *this;
 	}
 
-	/*Добавление объекта в данный файл*/
-	Double const & append(std::FILE * src [[maybe_unused]]) const override
-	{
-		return *this;
-	}
-
 	/*Чтение из переданного файла*/
 	Double & read(std::FILE * src [[maybe_unused]]) override
 	{
+		*n_ = rwSize();
 		return *this;
 	}
 

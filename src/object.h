@@ -24,9 +24,6 @@ public:
 	/*Перезапись данного файла*/
 	virtual Object const & save(std::FILE *src) const = 0;
 
-	/*Добавление объекта в данный файл*/
-	virtual Object const & append(std::FILE *src) const = 0;
-
 	/*Чтение из переданного потока*/
 	virtual Object & read(std::istream & ist) = 0;
 
