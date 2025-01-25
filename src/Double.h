@@ -31,24 +31,24 @@ public:
 	Double const & save(std::FILE * src [[maybe_unused]]) const override
 	{
 		return *this;
-	};
+	}
 
 	/*Добавление объекта в данный файл*/
 	Double const & append(std::FILE * src [[maybe_unused]]) const override
 	{
 		return *this;
-	};
+	}
 
 	/*Чтение из переданного файла*/
 	Double & read(std::FILE * src [[maybe_unused]]) override
 	{
 		return *this;
-	};
+	}
 
 private:
 	static char const type_id{1};
 	double * n_;
 
 	// Размер объекта при чтении или записи в бинарный файл
-	virtual int rwSize() override { return sizeof(*n_) + sizeof(type_id); }
+	int rwSize() override { return sizeof(*n_) + sizeof(type_id); }
 };

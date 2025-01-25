@@ -10,7 +10,7 @@ Double & Double::add(Object const & other)
 {
 	auto cmp{dynamic_cast<Double const *>(&other)};
 	if (nullptr == cmp)
-		throw Object::exceptions::NOT_MATCHING_DERIVED;
+		throw Object::exceptions::NOT_MATCHING_TYPES;
 
 	*n_ += *(cmp->n_);
 	return *this;
@@ -26,7 +26,7 @@ bool Double::equal(Object const & i) const noexcept(false)
 {
 	auto cmp{dynamic_cast<Double const *>(&i)};
 	if (nullptr == cmp)
-		throw Object::exceptions::NOT_MATCHING_DERIVED;
+		throw Object::exceptions::NOT_MATCHING_TYPES;
 
 	return *n_ == *(cmp->n_);
 }
@@ -35,7 +35,7 @@ int Double::compare(Object const & other) const noexcept(false)
 {
 	auto cmp{dynamic_cast<Double const *>(&other)};
 	if (nullptr == cmp)
-		throw Object::exceptions::NOT_MATCHING_DERIVED;
+		throw Object::exceptions::NOT_MATCHING_TYPES;
 
 	auto diff{*n_ - *cmp->n_};
 	return (diff > 0) ? 1 : (diff < 0) ? -1 : 0;

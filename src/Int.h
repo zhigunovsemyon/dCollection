@@ -43,5 +43,5 @@ private:
 	int * n_;
 
 	// Размер объекта при чтении или записи в бинарный файл
-	virtual int rwSize() override { return sizeof(*n_) + sizeof(type_id); }
+	int rwSize() override { return sizeof(*n_) + sizeof(type_id); }
 };

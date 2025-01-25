@@ -22,7 +22,7 @@ int Int::compare(Object const & other) const noexcept(false)
 {
 	auto cmp{dynamic_cast<Int const *>(&other)};
 	if (nullptr == cmp)
-		throw Object::exceptions::NOT_MATCHING_DERIVED;
+		throw Object::exceptions::NOT_MATCHING_TYPES;
 
 	return static_cast<int>(*n_ - *cmp->n_);
 }
@@ -31,7 +31,7 @@ bool Int::equal(Object const & i) const noexcept(false)
 {
 	auto cmp{dynamic_cast<Int const *>(&i)};
 	if (nullptr == cmp)
-		throw Object::exceptions::NOT_MATCHING_DERIVED;
+		throw Object::exceptions::NOT_MATCHING_TYPES;
 
 	return *n_ == *(cmp->n_);
 }
@@ -40,7 +40,7 @@ Int & Int::add(Object const & other)
 {
 	auto cmp{dynamic_cast<Int const *>(&other)};
 	if (nullptr == cmp)
-		throw Object::exceptions::NOT_MATCHING_DERIVED;
+		throw Object::exceptions::NOT_MATCHING_TYPES;
 
 	*n_ += *(cmp->n_);
 	return *this;

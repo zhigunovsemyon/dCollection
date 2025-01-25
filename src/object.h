@@ -6,7 +6,7 @@
 class Object {
 public:
 	enum class exceptions {
-		NOT_MATCHING_DERIVED
+		NOT_MATCHING_TYPES
 	};
 
 	/*Виртуальный деструктор*/
