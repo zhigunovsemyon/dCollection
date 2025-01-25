@@ -37,12 +37,10 @@ public:
 	int compare(Object const & other) const noexcept(false) override;
 
 	/*Перезапись данного файла*/
-	Double const & save(std::FILE * src [[maybe_unused]]) const
-		noexcept(false) override;
+	Double const & save(std::FILE * src) const noexcept(false) override;
 
 	/*Чтение из переданного файла*/
-	Double & read(std::FILE * src
-		      [[maybe_unused]]) noexcept(false) override;
+	Double & read(std::FILE * src) noexcept(false) override;
 
 private:
 	static char constexpr type_id_{1};
