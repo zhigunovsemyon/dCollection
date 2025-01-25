@@ -19,21 +19,29 @@ public:
 
 	int compare(Object const & other) const noexcept(false) override;
 
-
 	bool equal(Object const & i) const noexcept(false) override;
 
 	Int & add(Object const & other) override;
 
 	/*Перезапись данного файла*/
-	Int const & save(std::FILE *src[[maybe_unused]]) const override {return *this;};
+	Int const & save(std::FILE * src [[maybe_unused]]) const override
+	{
+		return *this;
+	}
 
 	/*Добавление объекта в данный файл*/
-	Int const & append(std::FILE *src[[maybe_unused]]) const override {return *this;};
+	Int const & append(std::FILE * src [[maybe_unused]]) const override
+	{
+		return *this;
+	}
 
 	/*Чтение из переданного файла*/
-	 Int & read(std::FILE *src[[maybe_unused]]) override {return *this;};
+	Int & read(std::FILE * src [[maybe_unused]]) override { return *this; }
 
 private:
-	static char const type_id {0};
+	static char const type_id{0};
 	int * n_;
+
+	// Размер объекта при чтении или записи в бинарный файл
+	virtual int rwSize() override { return sizeof(*n_) + sizeof(type_id); }
 };

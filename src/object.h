@@ -101,4 +101,6 @@ protected:
 private:
 	static inline int count_; // Счётчик объектов
 	int const id_;		  // Идентификатор класса
+	
+	virtual int rwSize() = 0; //Размер объекта при чтении или записи в бинарный файл
 };
