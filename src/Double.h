@@ -28,22 +28,15 @@ public:
 	int compare(Object const & other) const noexcept(false) override;
 
 	/*Перезапись данного файла*/
-	Double const & save(std::FILE * src [[maybe_unused]]) const override
-	{
-		return *this;
-	}
+	Double const & save(std::FILE * src [[maybe_unused]]) const noexcept(false) override;
 
 	/*Чтение из переданного файла*/
-	Double & read(std::FILE * src [[maybe_unused]]) override
-	{
-		*n_ = rwSize();
-		return *this;
-	}
+	Double & read(std::FILE * src [[maybe_unused]]) noexcept(false) override;
 
 private:
-	static char const type_id{1};
+	static char constexpr type_id_ {1};
 	double * n_;
 
 	// Размер объекта при чтении или записи в бинарный файл
-	int rwSize() override { return sizeof(*n_) + sizeof(type_id); }
+	size_t rwSize_() override { return sizeof(*n_) + sizeof(type_id_); }
 };

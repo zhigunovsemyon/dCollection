@@ -1,4 +1,6 @@
 #include "Int.h"
+#include <cstddef>
+#include <vector>
 
 Int & Int::operator=(Int const & i)
 {
@@ -6,19 +8,19 @@ Int & Int::operator=(Int const & i)
 	return *this;
 }
 
-Int const & Int::print(std::ostream & ost) const 
+Int const & Int::print(std::ostream & ost) const
 {
 	ost << *n_;
 	return *this;
 }
 
-Int & Int::read(std::istream & ist) 
+Int & Int::read(std::istream & ist)
 {
 	ist >> *n_;
 	return *this;
 }
 
-int Int::compare(Object const & other) const noexcept(false) 
+int Int::compare(Object const & other) const noexcept(false)
 {
 	auto cmp{dynamic_cast<Int const *>(&other)};
 	if (nullptr == cmp)
@@ -27,7 +29,7 @@ int Int::compare(Object const & other) const noexcept(false)
 	return static_cast<int>(*n_ - *cmp->n_);
 }
 
-bool Int::equal(Object const & i) const noexcept(false) 
+bool Int::equal(Object const & i) const noexcept(false)
 {
 	auto cmp{dynamic_cast<Int const *>(&i)};
 	if (nullptr == cmp)
@@ -36,12 +38,38 @@ bool Int::equal(Object const & i) const noexcept(false)
 	return *n_ == *(cmp->n_);
 }
 
-Int & Int::add(Object const & other) 
+Int & Int::add(Object const & other)
 {
 	auto cmp{dynamic_cast<Int const *>(&other)};
 	if (nullptr == cmp)
 		throw Object::exceptions::NOT_MATCHING_TYPES;
 
 	*n_ += *(cmp->n_);
+	return *this;
+}
+
+/*Перезапись данного файла*/
+Int const & Int::save(std::FILE * src) const 
+{
+	if(!std::fwrite(&type_id_, sizeof(type_id_), 1, src))
+		throw Object::exceptions::FWRITE_FAIL;
+	if(!std::fwrite(n_, sizeof(*n_), 1, src))
+		throw Object::exceptions::FWRITE_FAIL;
+	return *this;
+}
+
+/*Чтение из переданного файла*/
+Int & Int::read(std::FILE * src) 
+{
+	std::vector<std::byte> buf;
+	buf.reserve(rwSize_());
+	if(!fread(buf.data(), rwSize_(), 1, src))
+		throw Object::exceptions::FREAD_FAIL;
+
+	if (static_cast<char>(*buf.data()) != type_id_)
+		throw Object::exceptions::NOT_MATCHING_TYPES;
+
+	*n_ = *(int*)(buf.data() + 1);
+
 	return *this;
 }

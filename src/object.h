@@ -6,7 +6,9 @@
 class Object {
 public:
 	enum class exceptions {
-		NOT_MATCHING_TYPES
+		NOT_MATCHING_TYPES,
+		FREAD_FAIL,
+		FWRITE_FAIL
 	};
 
 	/*Виртуальный деструктор*/
@@ -99,5 +101,5 @@ private:
 	static inline int count_; // Счётчик объектов
 	int const id_;		  // Идентификатор класса
 	
-	virtual int rwSize() = 0; //Размер объекта при чтении или записи в бинарный файл
+	virtual size_t rwSize_() = 0; //Размер объекта при чтении или записи в бинарный файл
 };

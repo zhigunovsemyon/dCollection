@@ -24,21 +24,15 @@ public:
 	Int & add(Object const & other) override;
 
 	/*Перезапись данного файла*/
-	Int const & save(std::FILE * src [[maybe_unused]]) const override
-	{
-		return *this;
-	}
+	Int const & save(std::FILE * src) const noexcept(false) override;
 
 	/*Чтение из переданного файла*/
-	Int & read(std::FILE * src [[maybe_unused]]) override { 
-		*n_ = rwSize();
-		return *this; 
-	}
+	Int & read(std::FILE * src) noexcept(false) override;
 
 private:
-	static char const type_id{0};
+	static char constexpr type_id_{0};
 	int * n_;
 
 	// Размер объекта при чтении или записи в бинарный файл
-	int rwSize() override { return sizeof(*n_) + sizeof(type_id); }
+	size_t rwSize_() override { return sizeof(*n_) + sizeof(type_id_); }
 };
