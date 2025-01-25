@@ -27,6 +27,16 @@ public:
 
 	int compare(Object const & other) const noexcept(false) override;
 
+	/*Перезапись данного файла*/
+	Double const & save(std::FILE *src[[maybe_unused]]) const override {return *this;};
+
+	/*Добавление объекта в данный файл*/
+	Double const & append(std::FILE *src[[maybe_unused]]) const override {return *this;};
+
+	/*Чтение из переданного файла*/
+	Double & read(std::FILE *src[[maybe_unused]]) override {return *this;};
+
 private:
+	static char const type_id {1};
 	double * n_;
 };

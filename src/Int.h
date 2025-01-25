@@ -24,6 +24,16 @@ public:
 
 	Int & add(Object const & other) override;
 
+	/*Перезапись данного файла*/
+	Int const & save(std::FILE *src[[maybe_unused]]) const override {return *this;};
+
+	/*Добавление объекта в данный файл*/
+	Int const & append(std::FILE *src[[maybe_unused]]) const override {return *this;};
+
+	/*Чтение из переданного файла*/
+	 Int & read(std::FILE *src[[maybe_unused]]) override {return *this;};
+
 private:
+	static char const type_id {0};
 	int * n_;
 };
