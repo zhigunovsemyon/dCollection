@@ -1,18 +1,25 @@
 #include "Double.h"
-#include "Int.h"
+#include "String.h"
 #include <iostream>
 
 int main()
 {
 	try {
-		Double n{10};
-		Double m;
+		String st{"Sample text"};
 
-		std::cout << "n = " << n << '\n';
+		FILE * f = fopen ("test1", "wb");
+		st.save(f);
+		fclose(f);
 
-		m = n;
+		st = "del";
+		std::cout << st << '\n';
 
-		std::cout << "m = " << m << '\n';
+		f = fopen ("test1", "rb");
+		st.read(f);
+		fclose(f);
+
+		std::cout << st << '\n';
+
 		return EXIT_SUCCESS;
 	} catch (Object::exceptions exc) {
 		switch (exc) {
