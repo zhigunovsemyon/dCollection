@@ -29,15 +29,6 @@ int Int::compare(Object const & other) const noexcept(false)
 	return static_cast<int>(*n_ - *cmp->n_);
 }
 
-bool Int::equal(Object const & i) const noexcept(false)
-{
-	auto cmp{dynamic_cast<Int const *>(&i)};
-	if (nullptr == cmp)
-		throw Object::exceptions::NOT_MATCHING_TYPES;
-
-	return *n_ == *(cmp->n_);
-}
-
 Int & Int::add(Object const & other)
 {
 	auto cmp{dynamic_cast<Int const *>(&other)};
@@ -49,27 +40,33 @@ Int & Int::add(Object const & other)
 }
 
 /*Перезапись данного файла*/
-Int const & Int::save(std::FILE * src) const 
+Int const & Int::save(std::FILE * src) const
 {
-	if(!std::fwrite(&type_id_, sizeof(type_id_), 1, src))
+	if (!std::fwrite(&type_id_, sizeof(type_id_), 1, src))
 		throw Object::exceptions::FWRITE_FAIL;
-	if(!std::fwrite(n_, sizeof(*n_), 1, src))
+	if (!std::fwrite(n_, sizeof(*n_), 1, src))
 		throw Object::exceptions::FWRITE_FAIL;
 	return *this;
 }
 
 /*Чтение из переданного файла*/
-Int & Int::read(std::FILE * src) 
+Int & Int::read(std::FILE * src)
 {
+	/*Буфер для хранения прочитанного*/
 	std::vector<std::byte> buf;
 	buf.reserve(rwSize_());
-	if(!fread(buf.data(), rwSize_(), 1, src))
+
+	/*Чтение файла в буфер*/
+	if (!fread(buf.data(), rwSize_(), 1, src))
 		throw Object::exceptions::FREAD_FAIL;
 
+	/*Если идентификатор типа из буфера не соответствует таковому для
+	 *данного объекта, выбрасывается соответствующее исключение*/
 	if (static_cast<char>(*buf.data()) != type_id_)
 		throw Object::exceptions::NOT_MATCHING_TYPES;
 
-	*n_ = *(int*)(buf.data() + 1);
+	/*Перезапись значения*/
+	*n_ = *(int *)(buf.data() + 1);
 
 	return *this;
 }
