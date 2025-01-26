@@ -1,4 +1,5 @@
 #include "StudentList.h"
+#include <ostream>
 
 StudentList & StudentList::add_(Student const & A)
 {
@@ -51,8 +52,15 @@ std::istream & operator>>(std::istream & ist, StudentList & list)
 		StudentList::Student tmp{};
 		ist >> tmp.N >> tmp.Surname >> tmp.Name;
 		ist >> tmp.Patronim >> tmp.AvgMark;
+		if (tmp.AvgMark.get() < 1.0 || tmp.AvgMark.get() > 5.0)
+			return ist;
+
 		for (auto & mark : tmp.Marks)
+		{
 			ist >> mark;
+			if (mark.get() > 5 || mark.get() < 1)
+				return ist;
+		}
 
 		if (ist.good()) {
 			list.add_(tmp);
@@ -229,3 +237,10 @@ bool StudentList::ReenterStudentWithSurname(std::istream &ist, String const & st
 	std::swap(tmp, *(list_.data() + i));
 	return true;
 }
+
+// static void PrintWithSpaces(std::ostream & ost);
+	
+// StudentList const & StudentList::print(std::ostream & ost) const
+// {
+//
+// }

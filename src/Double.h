@@ -15,6 +15,9 @@ public:
 	/*Присвоение*/
 	Double & operator=(Double const & i);
 
+	/*Извлечение содержимого в стандартной переменной*/
+	double get() const { return *n_; }
+
 	/*Название типа объекта*/
 	std::string_view type() const override { return "Double"; }
 

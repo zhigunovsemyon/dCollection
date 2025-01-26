@@ -6,7 +6,7 @@ int main()
 {
 	try {
 		StudentList list{};
-		std::ifstream src{"src.txt"};
+		std::ifstream src{"test.src.txt"};
 		src >> list;
 		src.close();
 

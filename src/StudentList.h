@@ -250,6 +250,9 @@ public:
 		return *this;
 	}
 
+	/*Вывод содержимого в виде таблицы*/
+	// StudentList const & print(std::ostream &) const;
+
 private:
 	static constexpr auto mcount{5ul}; /*Число оценок*/
 
