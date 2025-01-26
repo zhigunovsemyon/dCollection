@@ -49,15 +49,102 @@ std::istream & operator>>(std::istream & ist, StudentList & list)
 {
 	do {
 		StudentList::Student tmp{};
-	ist >> tmp.N >> tmp.Surname >> tmp.Name;
-	ist >> tmp.Patronim >> tmp.AvgMark;
-	for (auto & mark : tmp.Marks)
-		ist >> mark;
+		ist >> tmp.N >> tmp.Surname >> tmp.Name;
+		ist >> tmp.Patronim >> tmp.AvgMark;
+		for (auto & mark : tmp.Marks)
+			ist >> mark;
 
-	if (ist.good()) {
-		list.add_(tmp);
-	}
+		if (ist.good()) {
+			list.add_(tmp);
+		}
 	} while (ist.good());
 
 	return ist;
+}
+
+int StudentList::FindStudentByN(int n) const
+{
+	int i{};
+	for (auto & rec : list_) {
+		if (rec.N.get() == n)
+			return i;
+		/*else*/ ++i;
+	}
+	return -1;
+}
+
+/*Поиск записи с соответствующим именем*/
+int StudentList::FindStudentByName(String const & str) const
+{
+	int i{};
+	for (auto & rec : list_) {
+		if (rec.Name == str)
+			return i;
+		/*else*/ ++i;
+	}
+	return -1;
+}
+
+/*Поиск записи с соответствующим номером*/
+int StudentList::FindStudentByPatronim(String const & str) const
+{
+	int i{};
+	for (auto & rec : list_) {
+		if (rec.Patronim == str)
+			return i;
+		/*else*/ ++i;
+	}
+	return -1;
+}
+
+/*Поиск записи с соответствующей фамилией*/
+int StudentList::FindStudentBySurname(String const & str) const
+{
+	int i{};
+	for (auto & rec : list_) {
+		if (rec.Surname == str)
+			return i;
+		/*else*/ ++i;
+	}
+	return -1;
+}
+
+/*Удаление записи с соответствующим номером*/
+bool StudentList::DeleteStudentWithN(int n)
+{
+	auto i{FindStudentByN(n)};
+	if (i < 0)
+		return false;
+	list_.erase(list_.begin() + i);
+	return true;
+}
+
+/*Удаление записи с соответствующим именем*/
+bool StudentList::DeleteStudentWithName(String const & str) 
+{
+	auto i{FindStudentByName(str)};
+	if (i < 0)
+		return false;
+	list_.erase(list_.begin() + i);
+	return true;
+}
+
+/*Удаление записи с соответствующим номером*/
+bool StudentList::DeleteStudentWithPatronim(String const & str) 
+{
+	auto i{FindStudentByPatronim(str)};
+	if (i < 0)
+		return false;
+	list_.erase(list_.begin() + i);
+	return true;
+}
+
+/*Удаление записи с соответствующей фамилией*/
+bool StudentList::DeleteStudentWithSurname(String const & str) 
+{
+	auto i{FindStudentBySurname(str)};
+	if (i < 0)
+		return false;
+	list_.erase(list_.begin() + i);
+	return true;
 }

@@ -47,6 +47,18 @@ public:
 	/*Вывод без форматирования*/
 	friend std::ostream & operator<<(std::ostream &, StudentList const &);
 
+	/*Удаление записи с соответствующим номером*/
+	bool DeleteStudentWithN(int);
+
+	/*Удаление записи с соответствующим именем*/
+	bool DeleteStudentWithName(String const &);
+
+	/*Удаление записи с соответствующим номером*/
+	bool DeleteStudentWithPatronim(String const &);
+
+	/*Удаление записи с соответствующей фамилией*/
+	bool DeleteStudentWithSurname(String const &);
+
 private:
 	static constexpr auto mcount{5ul}; /*Число оценок*/
 
@@ -94,5 +106,16 @@ private:
 	Int MaxSurnameWidth_{0},      /*Самая широкая фамилия*/
 		MaxNameWidth_{0},     /*Самое широкое имя*/
 		MaxPatronimWidth_{0}; /*Самое широкое отчество*/
-};
 
+	/*Поиск записи с соответствующим номером*/
+	int FindStudentByN(int) const;
+
+	/*Поиск записи с соответствующим именем*/
+	int FindStudentByName(String const &) const;
+
+	/*Поиск записи с соответствующим номером*/
+	int FindStudentByPatronim(String const &) const;
+
+	/*Поиск записи с соответствующей фамилией*/
+	int FindStudentBySurname(String const &) const;
+};

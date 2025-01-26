@@ -13,6 +13,8 @@ int main()
 		// list.add(2, "Петров", "Пётр", "Петрович", 4, 4, 5, 4, 5);
 
 		std::cout << list;
+		list.DeleteStudentWithN(2);
+		list.DeleteStudentWithName("Иван");
 
 		std::ofstream out{"test1.txt"};
 		out << list;
