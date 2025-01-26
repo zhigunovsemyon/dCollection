@@ -160,6 +160,7 @@ public:
 				   SortFunc::SortField::M5));
 		return *this;
 	}
+
 	/*Сортировка списка по номерам*/
 	StudentList & SortStudentByNAsc()
 	{
@@ -251,7 +252,18 @@ public:
 	}
 
 	/*Вывод содержимого в виде таблицы*/
-	// StudentList const & print(std::ostream &) const;
+	StudentList const & print(std::ostream & ost) const
+	{
+		printHead(ost);
+		for (auto i{0lu}; i < list_.size(); ++i)
+		{
+			if (i > 0)
+				printSeparator(ost);
+			printEntry(ost, list_[i]);
+		}
+		printFooter(ost);
+		return *this;
+	}
 
 private:
 	static constexpr auto mcount{5ul}; /*Число оценок*/
@@ -352,9 +364,14 @@ private:
 		return sum.get() / static_cast<double>(marks.size());
 	}
 
-	Int MaxSurnameWidth_{0},      /*Самая широкая фамилия*/
-		MaxNameWidth_{0},     /*Самое широкое имя*/
-		MaxPatronimWidth_{0}; /*Самое широкое отчество*/
+	/*Самая широкая фамилия*/
+	Int MaxSurnameWidth_{static_cast<int>(String{"Фамилия"}.length())};
+
+	/*Самое широкое имя*/
+	Int MaxNameWidth_{static_cast<int>(String{"Имя"}.length())};
+
+	/*Самое широкое отчество*/
+	Int MaxPatronimWidth_{static_cast<int>(String{"Отчество"}.length())};
 
 	/*Поиск записи с соответствующим номером*/
 	int FindStudentByN(int) const;
@@ -367,4 +384,16 @@ private:
 
 	/*Поиск записи с соответствующей фамилией*/
 	int FindStudentBySurname(String const &) const;
+
+	/*Печать шапки таблицы*/
+	void printHead(std::ostream &) const;
+
+	/*Печать футера таблицы*/
+	void printFooter(std::ostream &) const;
+
+	/*Печать разделителя таблицы*/
+	void printSeparator(std::ostream &) const;
+
+	/*Печать одной записи из таблицы*/
+	void printEntry(std::ostream &, Student const &) const;
 };

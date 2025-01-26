@@ -10,9 +10,11 @@ int main()
 		src >> list;
 		src.close();
 
-		std::cout << "До:\n"<< list;
+		std::cout << "До:\n";
+		std::cout << list;
 		list.SortStudentByMark5Desc();
-		std::cout << "\nПосле:\n"<< list;
+		std::cout << "\nПосле:\n";
+		list.print(std::cout);
 
 		std::ofstream out{"test1.txt"};
 		out << list;
