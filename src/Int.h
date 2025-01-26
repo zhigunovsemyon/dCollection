@@ -42,6 +42,9 @@ public:
 	/*Чтение из переданного бинарного файла*/
 	Int & read(std::FILE * src) noexcept(false) override;
 
+	/*Извлечение значения в базовом int*/
+	int get() const { return *n_; }
+
 private:
 	static char constexpr type_id_{0};
 	int * n_;

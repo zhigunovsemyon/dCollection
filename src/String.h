@@ -10,8 +10,11 @@ public:
 	/*Конструктор копирования*/
 	String(String const & i) : str_{i.str_} {}
 
-	/*Конструктор из вещественного числа*/
+	/*Конструктор из C-строки*/
 	String(char const * src = "") : str_{src} {}
+
+	/*Длина строки*/
+	auto length() const { return str_.length(); }
 
 	/*Присвоение*/
 	String & operator=(String const & i)

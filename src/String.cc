@@ -1,5 +1,4 @@
 #include "String.h"
-#include <vector>
 
 int String::compare(Object const & other) const noexcept(false)
 {
