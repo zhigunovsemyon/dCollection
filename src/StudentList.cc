@@ -48,7 +48,15 @@ std::ostream & operator<<(std::ostream & ost, StudentList const & list)
 std::istream & operator>>(std::istream & ist, StudentList & list)
 {
 	do {
-		list.enter(ist);
+		StudentList::Student tmp{};
+	ist >> tmp.N >> tmp.Surname >> tmp.Name;
+	ist >> tmp.Patronim >> tmp.AvgMark;
+	for (auto & mark : tmp.Marks)
+		ist >> mark;
+
+	if (ist.good()) {
+		list.add_(tmp);
+	}
 	} while (ist.good());
 
 	return ist;
