@@ -47,6 +47,18 @@ public:
 	/*Вывод без форматирования*/
 	friend std::ostream & operator<<(std::ostream &, StudentList const &);
 
+	/*Повторный ввод записи с соответствующим номером*/
+	bool ReenterStudentWithN(std::istream &, int);
+
+	/*Повторный ввод записи с соответствующим именем*/
+	bool ReenterStudentWithName(std::istream &, String const &);
+
+	/*Повторный ввод записи с соответствующим номером*/
+	bool ReenterStudentWithPatronim(std::istream &, String const &);
+
+	/*Повторный ввод записи с соответствующей фамилией*/
+	bool ReenterStudentWithSurname(std::istream &, String const &);
+
 	/*Удаление записи с соответствующим номером*/
 	bool DeleteStudentWithN(int);
 

@@ -120,7 +120,7 @@ bool StudentList::DeleteStudentWithN(int n)
 }
 
 /*Удаление записи с соответствующим именем*/
-bool StudentList::DeleteStudentWithName(String const & str) 
+bool StudentList::DeleteStudentWithName(String const & str)
 {
 	auto i{FindStudentByName(str)};
 	if (i < 0)
@@ -130,7 +130,7 @@ bool StudentList::DeleteStudentWithName(String const & str)
 }
 
 /*Удаление записи с соответствующим номером*/
-bool StudentList::DeleteStudentWithPatronim(String const & str) 
+bool StudentList::DeleteStudentWithPatronim(String const & str)
 {
 	auto i{FindStudentByPatronim(str)};
 	if (i < 0)
@@ -140,11 +140,92 @@ bool StudentList::DeleteStudentWithPatronim(String const & str)
 }
 
 /*Удаление записи с соответствующей фамилией*/
-bool StudentList::DeleteStudentWithSurname(String const & str) 
+bool StudentList::DeleteStudentWithSurname(String const & str)
 {
 	auto i{FindStudentBySurname(str)};
 	if (i < 0)
 		return false;
 	list_.erase(list_.begin() + i);
+	return true;
+}
+
+/*Повторный ввод записи с соответствующим номером*/
+bool StudentList::ReenterStudentWithN(std::istream &ist, int n)
+{
+	auto i{FindStudentByN(n)};
+	if (i < 0)
+		return false;
+
+	StudentList::Student tmp{};
+	ist >> tmp.N >> tmp.Surname >> tmp.Name >> tmp.Patronim;
+	for (auto & mark : tmp.Marks)
+		ist >> mark;
+
+	if (ist.bad()) 
+		return false;
+
+	tmp.AvgMark = AvgMark_(tmp.Marks);
+	std::swap(tmp, *(list_.data() + i));
+	return true;
+}
+
+/*Повторный ввод записи с соответствующим именем*/
+bool StudentList::ReenterStudentWithName(std::istream &ist, String const & str)
+{
+	auto i{FindStudentByName(str)};
+	if (i < 0)
+		return false;
+
+	StudentList::Student tmp{};
+	ist >> tmp.N >> tmp.Surname >> tmp.Name >> tmp.Patronim;
+	for (auto & mark : tmp.Marks)
+		ist >> mark;
+
+	if (ist.bad()) 
+		return false;
+
+	tmp.AvgMark = AvgMark_(tmp.Marks);
+	std::swap(tmp, *(list_.data() + i));
+	return true;
+}
+
+/*Повторный ввод записи с соответствующим номером*/
+bool StudentList::ReenterStudentWithPatronim(std::istream &ist,
+					     String const & str)
+{
+	auto i{FindStudentByPatronim(str)};
+	if (i < 0)
+		return false;
+
+	StudentList::Student tmp{};
+	ist >> tmp.N >> tmp.Surname >> tmp.Name >> tmp.Patronim;
+	for (auto & mark : tmp.Marks)
+		ist >> mark;
+
+	if (ist.bad()) 
+		return false;
+
+	tmp.AvgMark = AvgMark_(tmp.Marks);
+	std::swap(tmp, *(list_.data() + i));
+	return true;
+}
+
+/*Повторный ввод записи с соответствующей фамилией*/
+bool StudentList::ReenterStudentWithSurname(std::istream &ist, String const & str)
+{
+	auto i{FindStudentBySurname(str)};
+	if (i < 0)
+		return false;
+
+	StudentList::Student tmp{};
+	ist >> tmp.N >> tmp.Surname >> tmp.Name >> tmp.Patronim;
+	for (auto & mark : tmp.Marks)
+		ist >> mark;
+
+	if (ist.bad()) 
+		return false;
+
+	tmp.AvgMark = AvgMark_(tmp.Marks);
+	std::swap(tmp, *(list_.data() + i));
 	return true;
 }
