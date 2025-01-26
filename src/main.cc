@@ -7,7 +7,7 @@ int main()
 		StudentList list{};
 		list.add(1, "Иванов", "Иван", "Иванович", 4, 2, 3, 4, 5);
 		list.add(2, "Петров", "Пётр", "Петрович", 4, 4, 5, 4, 5);
-		list.enter(std::cin);
+		std::cin >> list;
 		std::cout << list;
 		return EXIT_SUCCESS;
 	} catch (Object::exceptions exc) {

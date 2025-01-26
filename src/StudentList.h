@@ -34,40 +34,18 @@ public:
 		std::array<Int, mcount> marks{Mark1, Mark2, Mark3, Mark4,
 					      Mark5};
 		add_(Student(N, Surname, Name, Patronim, AvgMark_(marks),
-			    marks));
+			     marks));
 		return *this;
 	}
 
 	/*Ввод одной записи*/
-	StudentList & enter(std::istream & ist)
-	{
-		Student tmp{};
-		ist >> tmp.N >> tmp.Surname >> tmp.Name >> tmp.Patronim;
-		for (auto & mark : tmp.Marks)
-			ist >> mark;
+	StudentList & enter(std::istream & ist);
 
-		if(ist.good()){
-			tmp.AvgMark = AvgMark_(tmp.Marks);
-			add_(tmp);
-		}
-
-		return *this;
-	}
+	/*Чтение из текстового потока*/
+	friend std::istream & operator>>(std::istream &, StudentList &);
 
 	/*Вывод без форматирования*/
-	friend std::ostream & operator<<(std::ostream & ost,
-					 StudentList const & list)
-	{
-		for (auto & rec : list.list_) {
-			ost << rec.N << ' ' << rec.Surname << ' ' << rec.Name;
-			ost << ' ' << rec.Patronim << ' ' << rec.AvgMark << ' ';
-			for (auto & mark : rec.Marks)
-				ost << mark << ' ';
-			ost << '\n';
-		}
-
-		return ost;
-	}
+	friend std::ostream & operator<<(std::ostream &, StudentList const &);
 
 private:
 	static constexpr auto mcount{5ul}; /*Число оценок*/
@@ -82,16 +60,17 @@ private:
 		std::array<Int, mcount> Marks; /*Оценки студента*/
 
 		/*Конструктор записи*/
-		Student(Int  const & N,
-			String  const & Surname,
-			String  const & Name,
-			String  const & Patronim,
-			Double  const & AvgMark,
-			std::array<Int, mcount>  const & Marks)
+		Student(Int const & N,
+			String const & Surname,
+			String const & Name,
+			String const & Patronim,
+			Double const & AvgMark,
+			std::array<Int, mcount> const & Marks)
 			: N{N}, Surname{Surname}, Name{Name},
 			  Patronim{Patronim}, AvgMark{AvgMark}, Marks{Marks}
 		{
 		}
+
 		/*Пустой конструктор*/
 		Student() {}
 	};
@@ -117,17 +96,3 @@ private:
 		MaxPatronimWidth_{0}; /*Самое широкое отчество*/
 };
 
-StudentList & StudentList::add_(Student const & A)
-{
-	MaxNameWidth_ = static_cast<int>(std::max(
-		static_cast<size_t>(MaxNameWidth_.get()), A.Name.length()));
-	MaxSurnameWidth_ = static_cast<int>(
-		std::max(static_cast<size_t>(MaxSurnameWidth_.get()),
-			 A.Surname.length()));
-	MaxPatronimWidth_ = static_cast<int>(
-		std::max(static_cast<size_t>(MaxPatronimWidth_.get()),
-			 A.Patronim.length()));
-
-	list_.push_back(A);
-	return *this;
-}
