@@ -6,15 +6,14 @@ int main()
 {
 	try {
 		StudentList list{};
-		list.add(1, "Иванов", "Иван", "Иванович", 4, 2, 3, 4, 5);
-		list.add(2, "Петров", "Пётр", "Петрович", 4, 4, 5, 4, 5);
+		std::ifstream src{"src.txt"};
+		src >> list;
+		src.close();
 
-		std::cout << list;
-		// list.DeleteStudentWithN(2);
-		if(!list.ReenterStudentWithName(std::cin, "Иван"))
-			std::cerr << "Не удалось изменить запись\n";
+		std::cout << "До:\n"<< list;
+		list.SortStudentByMark5Desc();
+		std::cout << "\nПосле:\n"<< list;
 
-		std::cout << list;
 		std::ofstream out{"test1.txt"};
 		out << list;
 		out.close();
