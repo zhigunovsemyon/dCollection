@@ -17,7 +17,7 @@ if (WIN32)
 	add_definitions("/W4 /WX") 
 	add_compile_options(-D _CRT_SECURE_NO_WARNINGS) 
 else()
-	add_definitions("-Wall -Wextra -Werror -Wconversion -Wsign-conversion -mno-avx")
+	add_definitions("-Wall -Wextra -Werror -Wconversion -Wsign-conversion")
 endif(WIN32)
 
 add_executable (${PROJECT_NAME} ${CXX_FILES}) 

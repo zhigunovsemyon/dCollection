@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <array>
 #include <cstddef>
+#include <istream>
 #include <numeric>
 #include <ostream>
 #include <vector>
@@ -32,8 +33,24 @@ public:
 	{
 		std::array<Int, mcount> marks{Mark1, Mark2, Mark3, Mark4,
 					      Mark5};
-		add(Student(N, Surname, Name, Patronim, AvgMark_(marks),
+		add_(Student(N, Surname, Name, Patronim, AvgMark_(marks),
 			    marks));
+		return *this;
+	}
+
+	/*Ввод одной записи*/
+	StudentList & enter(std::istream & ist)
+	{
+		Student tmp;
+		ist >> tmp.N >> tmp.Surname >> tmp.Name >> tmp.Patronim;
+		for (auto & mark : tmp.Marks)
+			ist >> mark;
+
+		if(ist.good()){
+			tmp.AvgMark = AvgMark_(tmp.Marks);
+			add_(tmp);
+		}
+
 		return *this;
 	}
 
@@ -41,10 +58,10 @@ public:
 	friend std::ostream & operator<<(std::ostream & ost,
 					 StudentList const & list)
 	{
-		for (auto rec : list.list_) {
+		for (auto & rec : list.list_) {
 			ost << rec.N << ' ' << rec.Surname << ' ' << rec.Name;
 			ost << ' ' << rec.Patronim << ' ' << rec.AvgMark << ' ';
-			for (auto mark : rec.Marks)
+			for (auto & mark : rec.Marks)
 				ost << mark << ' ';
 			ost << '\n';
 		}
@@ -75,19 +92,21 @@ private:
 			  Patronim{Patronim}, AvgMark{AvgMark}, Marks{Marks}
 		{
 		}
+		/*Пустой конструктор*/
+		Student() {}
 	};
 
 	/*Список студентов*/
 	std::vector<StudentList::Student> list_;
 
 	/*Добавление готовой записи со студентом*/
-	StudentList & add(Student const & A);
+	StudentList & add_(Student const & A);
 
 	/*Подсчёт средней оценки*/
 	Double AvgMark_(std::array<Int, mcount> const & marks)
 	{
 		Int sum{};
-		for (auto mark : marks)
+		for (auto & mark : marks)
 			sum += mark;
 
 		return sum.get() / static_cast<double>(marks.size());
@@ -98,7 +117,7 @@ private:
 		MaxPatronimWidth_{0}; /*Самое широкое отчество*/
 };
 
-StudentList & StudentList::add(Student const & A)
+StudentList & StudentList::add_(Student const & A)
 {
 	MaxNameWidth_ = static_cast<int>(std::max(
 		static_cast<size_t>(MaxNameWidth_.get()), A.Name.length()));
