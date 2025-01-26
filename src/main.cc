@@ -1,25 +1,12 @@
-#include "Double.h"
-#include "String.h"
+#include "StudentList.h"
 #include <iostream>
 
 int main()
 {
 	try {
-		String st{"Sample text"};
-
-		FILE * f = fopen ("test1", "wb");
-		st.save(f);
-		fclose(f);
-
-		st = "del";
-		std::cout << st << '\n';
-
-		f = fopen ("test1", "rb");
-		st.read(f);
-		fclose(f);
-
-		std::cout << st << '\n';
-
+		StudentList list{};
+		list.add(1, "Строуструп", "Бьярн", "", 1, 2, 3, 4, 5);
+		std::cout << list;
 		return EXIT_SUCCESS;
 	} catch (Object::exceptions exc) {
 		switch (exc) {
