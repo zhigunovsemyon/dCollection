@@ -14,7 +14,7 @@ int main()
 		std::cout << list;
 		list.SortStudentByMark5Desc();
 		std::cout << "\nПосле:\n";
-		list.print(std::cout);
+		std::cout << list;
 
 		std::ofstream out{"test1.txt"};
 		out << list;
