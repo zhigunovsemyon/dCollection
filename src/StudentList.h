@@ -20,15 +20,15 @@
 class StudentList {
 public:
 	/*Добавление нового студента по готовым данным*/
-	StudentList & add(Int N,	   /*Номер студента*/
-			  String Surname,  /*Фамилия*/
-			  String Name,	   /*Имя*/
-			  String Patronim, /*Отчество*/
-			  Int Mark1,	   /*Оценка студента*/
-			  Int Mark2,	   /*Оценка студента*/
-			  Int Mark3,	   /*Оценка студента*/
-			  Int Mark4,	   /*Оценка студента*/
-			  Int Mark5	   /*Оценка студента*/
+	StudentList & add(Int const & N,	   /*Номер студента*/
+			  String const & Surname,  /*Фамилия*/
+			  String const & Name,	   /*Имя*/
+			  String const & Patronim, /*Отчество*/
+			  Int const & Mark1,	   /*Оценка студента*/
+			  Int const & Mark2,	   /*Оценка студента*/
+			  Int const & Mark3,	   /*Оценка студента*/
+			  Int const & Mark4,	   /*Оценка студента*/
+			  Int const & Mark5	   /*Оценка студента*/
 	)
 	{
 		std::array<Int, mcount> marks{Mark1, Mark2, Mark3, Mark4,
@@ -41,7 +41,7 @@ public:
 	/*Ввод одной записи*/
 	StudentList & enter(std::istream & ist)
 	{
-		Student tmp;
+		Student tmp{};
 		ist >> tmp.N >> tmp.Surname >> tmp.Name >> tmp.Patronim;
 		for (auto & mark : tmp.Marks)
 			ist >> mark;
@@ -82,12 +82,12 @@ private:
 		std::array<Int, mcount> Marks; /*Оценки студента*/
 
 		/*Конструктор записи*/
-		Student(Int N,
-			String Surname,
-			String Name,
-			String Patronim,
-			Double AvgMark,
-			std::array<Int, mcount> Marks)
+		Student(Int  const & N,
+			String  const & Surname,
+			String  const & Name,
+			String  const & Patronim,
+			Double  const & AvgMark,
+			std::array<Int, mcount>  const & Marks)
 			: N{N}, Surname{Surname}, Name{Name},
 			  Patronim{Patronim}, AvgMark{AvgMark}, Marks{Marks}
 		{
